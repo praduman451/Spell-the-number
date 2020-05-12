@@ -1,0 +1,117 @@
+#include<stdio.h>
+#include<string.h>
+char one[20][20] = { "one", "two", "three", "four",
+                 "five", "six", "seven", "eight",
+                 "nine", "ten", "eleven", "twelve",
+                 "thirteen", "fourteen", "fifteen",
+                 "sixteen", "seventeen", "eighteen",
+                 "nineteen"
+               };
+ 
+ 
+char ten[10][20] = { "twenty", "thirty", "forty",
+                 "fifty", "sixty", "seventy", "eighty",
+                 "ninety"
+               };
+ 
+void intToWord(int num)
+{
+    char fin[100] = { };
+    int t = num, dig = 0,rev=0,rem;
+    while(t)
+    {
+        t=t/10;
+        dig++;
+    }
+    if(dig == 0)
+    {
+        strcat(fin,"zero");
+        strcat(fin," ");
+    }
+    while(num!=0)    
+  {    
+     rem=num%10;    
+     rev=rev*10+rem;    
+     num/=10;    
+  }
+ 
+  while(rev)
+  {
+    int temp = rev%10;
+    switch(dig)
+    {
+          case 6 :
+                    strcat(fin,one[temp-1]);
+                    strcat(fin," lakhs");
+                    strcat(fin," ");
+          break;
+          case 5 :  
+            if(temp == 1)
+          {
+            rev = rev/10;
+            temp = rev%10;
+            strcat(fin,one[9+temp]);
+            strcat(fin," thousand");
+            strcat(fin," ");
+            dig--;
+            break;
+          }
+          else
+          {
+          strcat(fin,ten[temp-2]);
+          strcat(fin," ");
+          break;
+             }
+          break;
+ 
+          case 4 :
+                    strcat(fin,one[temp-1]);
+                    strcat(fin," thousand");
+                    strcat(fin," ");
+          break;
+          case 3 :  
+                    strcat(fin,one[temp-1]);
+                    strcat(fin," hundred");
+                    strcat(fin," ");
+          break;
+          case 2 : if(temp == 1)
+          {
+            rev = rev/10;
+            temp = rev%10;
+            strcat(fin,one[9+temp]);
+            strcat(fin," ");
+            dig--;
+            break;
+          }
+          else
+          {
+          strcat(fin,ten[temp-2]);
+          strcat(fin," ");
+          break;
+             }
+          case 1 :  
+                    strcat(fin,one[temp-1]);
+                    strcat(fin," ");
+          break;
+      }
+      dig--;
+      rev = rev/10;
+  }
+  int i;
+  for(i=0;i<strlen(fin)-1;i++)
+  {
+  printf("%c",fin[i]);
+}
+}
+int main()
+{
+  int t,i,j=0;
+  char a[50], b[50];
+  scanf("%d", &t);
+  while(t--)
+  {
+    scanf("%d", &i);
+    intToWord(i);
+    printf("\n");
+  }
+}
